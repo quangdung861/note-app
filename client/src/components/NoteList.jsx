@@ -25,9 +25,6 @@ import vi from "date-fns/locale/vi";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-import { DELETE_DOCUMENT } from "../utils/mutation";
-import { graphQLRequest } from "../utils/request";
-
 import { deleteNote } from "../utils/noteUtils";
 
 const NoteList = () => {
@@ -80,37 +77,9 @@ const NoteList = () => {
     );
   };
 
-  // const handleDeleteNote = (id) => {
-  //   const payload = {
-  //     query: DELETE_DOCUMENT,
-  //     variables: { id: id },
-  //   };
-
-  //   const options = {
-  //     // Thêm các tùy chọn yêu cầu (nếu cần)
-  //   };
-
-  //   graphQLRequest(payload, options)
-  //     .then((response) => {
-  //       if (response) {
-  //         const deletedDocument = response.deleteDocument;
-  //         if (deletedDocument) {
-  //           console.log("Document deleted successfully:", deletedDocument);
-  //         } else {
-  //           console.log("Failed to delete document.");
-  //         }
-  //       } else {
-  //         console.log("GraphQL request failed.");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //     });
-  // };
-
   const handleDeleteNote = (id) => {
-    deleteNote(id)
-  }
+    deleteNote(id);
+  };
 
   return (
     <Grid container height="100%">
