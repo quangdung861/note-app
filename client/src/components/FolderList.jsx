@@ -17,6 +17,8 @@ const FolderList = ({ folders }) => {
         padding: "10px",
         textAlign: "left",
         overflowY: "auto",
+        borderTopLeftRadius: "6px",
+        borderBottomLeftRadius: "6px"
       }}
       subheader={
         <Box

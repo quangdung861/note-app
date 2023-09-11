@@ -23,7 +23,7 @@ const Home = () => {
       <Typography variant="h4" sx={{ mb: "20px", mt: "50px", color: "#fff" }}>
         SỔ GHI CHÚ
       </Typography>
-      <Box sx={{ display: "flex", justifyContent: "right", mb: "10px", gap: "8px" }}>
+      <Box style={{ display: "flex", justifyContent: "flex-right", marginBottom: "10px", gap: "8px" }}>
         <UserMenu />
         <PushNotification />
       </Box>
@@ -35,7 +35,10 @@ const Home = () => {
           borderRadius: "6px",
         }}
       >
-        <Grid item xs={3} sx={{ height: "50vh", width: "100%" }}>
+        <Grid item xs={3} sx={{
+          height: "50vh", width: "100%", borderTopLeftRadius: "6px",
+          borderBottomLeftRadius: "6px"
+        }}>
           <FolderList folders={folders} />
         </Grid>
         <Grid item xs={9} sx={{ height: "50vh" }}>

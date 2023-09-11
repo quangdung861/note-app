@@ -22,6 +22,7 @@ import "./noteList.css";
 
 import { format, formatDistanceToNow } from 'date-fns'
 import vi from 'date-fns/locale/vi'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const NoteList = () => {
 
