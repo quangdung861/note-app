@@ -19,6 +19,7 @@ body {
   font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
     "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
+  color: #333;
   input:focus {
     outline: none !important;
     box-shadow: none !important;

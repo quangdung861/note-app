@@ -57,9 +57,8 @@ const FolderList = ({ folders }) => {
     >
       {folders.map(({ id, name }) => {
         return (
-          <div style={{position: "relative"}}>
+          <div style={{ position: "relative" }} key={id}>
             <Link
-              key={id}
               to={`folders/${id}`}
               style={{ textDecoration: "none" }}
               onClick={() => setActiveFolderId(id)}
@@ -75,7 +74,7 @@ const FolderList = ({ folders }) => {
                 <CardContent
                   sx={{ "&:last-child": { pb: "10px" }, padding: "10px" }}
                 >
-                  <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>
+                  <Typography sx={{ fontWeight: 600, fontSize: "15px" }}>
                     {name}
                   </Typography>
                 </CardContent>

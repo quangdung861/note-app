@@ -63,7 +63,7 @@ const Note = () => {
     <Editor
       editorState={editorState}
       onEditorStateChange={handleOnChange}
-      placeholder="write something!"
+      // placeholder="write something!"
       sx={{ height: "50vh" }}
     />
   );

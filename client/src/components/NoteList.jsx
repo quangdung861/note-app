@@ -23,7 +23,7 @@ import "./noteList.css";
 import { format, formatDistanceToNow } from "date-fns";
 import vi from "date-fns/locale/vi";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const NoteList = () => {
   const [isShowDropdown, setIsShowDropdown] = useState(false);
@@ -110,10 +110,17 @@ const NoteList = () => {
           }
         >
           {folder.notes.map(({ id, content, updatedAt }) => {
+            console.log(content);
+
+            const regex = /<p><\/p>/; // Biểu thức chính quy kiểm tra chuỗi "<p></p>"
+
+            const result = regex.test(content); // Kiểm tra xem chuỗi có khớp với biểu thức không
+
+            console.log(result); // Kết quả: true nếu khớp, false nếu không khớp
+
             return (
-              <div style={{ position: "relative" }}>
+              <div style={{ position: "relative" }} key={id}>
                 <Link
-                  key={id}
                   to={`note/${id}`}
                   style={{ textDecoration: "none" }}
                   onClick={() => setActiveNoteId(id)}
@@ -135,13 +142,19 @@ const NoteList = () => {
                         className="title-note"
                         style={{
                           fontSize: 14,
-                          fontWeight: "bold",
+                          fontWeight: 600,
                           marginBottom: "4px",
+                          color: content.length > 0 && !result? "#333" : "#7a7a7a",
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: `${content.substring(0, 30) || "Empty"}`,
+                          __html: `${
+                            content.length > 0 && !result
+                              ? content.substring(0, 30)
+                              : "Trống"
+                          }`,
                         }}
                       />
+
                       <Typography
                         sx={{
                           fontSize: "10px",
