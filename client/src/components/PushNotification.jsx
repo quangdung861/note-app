@@ -60,8 +60,8 @@ const PushNotification = () => {
 
   return (
     <>
-      <Badge color="secondary" variant="dot" invisible={invisible}>
-        <NotificationsIcon onClick={handleClick} />
+      <Badge color="error" variant="dot" invisible={invisible}>
+        <NotificationsIcon style={{ color: "#FFCB2C" }} onClick={handleClick} />
       </Badge>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={handleClose}>{notification}</MenuItem>

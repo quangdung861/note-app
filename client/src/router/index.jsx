@@ -10,6 +10,7 @@ import { addNewNote, noteLoader, notesLoader, updateNote } from "../utils/noteUt
 import { folderLoader } from "../utils/folderUtils";
 
 const AuthLayout = () => {
+
   return (
     <AuthProvider>
       <Outlet />

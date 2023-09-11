@@ -13,7 +13,7 @@ import { Container } from "@mui/material";
 import "./firebase/config";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <Container maxWidth="lg" sx={{ textAlign: "center", marginTop: "50px" }}>
+    <div>
       <RouterProvider router={router} />
-    </Container>
+    </div>
 );

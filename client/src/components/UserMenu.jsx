@@ -21,8 +21,8 @@ const UserMenu = () => {
   };
   return (
     <>
-      <Box sx={{ display: "flex" }} onClick={handleClick}>
-        <Typography>{displayName}</Typography>
+      <Box sx={{ display: "flex", color: "white" }} onClick={handleClick}>
+        <Typography> {displayName}</Typography>
         <Avatar
           alt="avatar"
           src={photoURL}

@@ -2,6 +2,7 @@ import { Box, Card, CardContent, List, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import NewFolder from "./NewFolder";
+import "./folderList.css";
 
 const FolderList = ({ folders }) => {
   const { folderId } = useParams();
@@ -9,6 +10,7 @@ const FolderList = ({ folders }) => {
 
   return (
     <List
+      className="folder-list"
       sx={{
         bgcolor: "#7D9D9C",
         height: "100%",

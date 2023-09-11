@@ -18,9 +18,13 @@ import {
   useSubmit,
   useNavigate,
 } from "react-router-dom";
-import moment from "moment";
+import "./noteList.css";
+
+import { format, formatDistanceToNow } from 'date-fns'
+import vi from 'date-fns/locale/vi'
 
 const NoteList = () => {
+
   const { folder } = useLoaderData();
 
   const { noteId, folderId } = useParams();
@@ -54,6 +58,7 @@ const NoteList = () => {
   return (
     <Grid container height="100%">
       <Grid
+        className="note-list"
         item
         xs={4}
         sx={{
@@ -116,7 +121,7 @@ const NoteList = () => {
                       }}
                     />
                     <Typography sx={{ fontSize: "10px" }}>
-                      {moment(updatedAt).format("MMMM Do YYYY, h:mm:ss a")}
+                      {format(new Date(updatedAt), "EEEE dd/MM/yyyy HH:mm ", { locale: vi })}
                     </Typography>
                   </CardContent>
                 </Card>
@@ -125,7 +130,7 @@ const NoteList = () => {
           })}
         </List>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={8} style={{ backgroundColor: "#fff" }}>
         <Outlet />
       </Grid>
     </Grid>
