@@ -1,12 +1,32 @@
 import { Box, Card, CardContent, List, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import NewFolder from "./NewFolder";
 import "./folderList.css";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const FolderList = ({ folders }) => {
   const { folderId } = useParams();
   const [activeFolderId, setActiveFolderId] = useState(folderId);
+  const [isShowDropdown, setIsShowDropdown] = useState(false);
+
+  const dropdownRef1 = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef1.current &&
+        !dropdownRef1.current.contains(event.target)
+      ) {
+        setIsShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <List
@@ -18,7 +38,7 @@ const FolderList = ({ folders }) => {
         textAlign: "left",
         overflowY: "auto",
         borderTopLeftRadius: "6px",
-        borderBottomLeftRadius: "6px"
+        borderBottomLeftRadius: "6px",
       }}
       subheader={
         <Box
@@ -37,28 +57,47 @@ const FolderList = ({ folders }) => {
     >
       {folders.map(({ id, name }) => {
         return (
-          <Link
-            key={id}
-            to={`folders/${id}`}
-            style={{ textDecoration: "none" }}
-            onClick={() => setActiveFolderId(id)}
-          >
-            <Card
-              sx={{
-                mb: "5px",
-                backgroundColor:
-                  id === activeFolderId ? "rgb(255 211 140)" : null,
-              }}
+          <div style={{position: "relative"}}>
+            <Link
+              key={id}
+              to={`folders/${id}`}
+              style={{ textDecoration: "none" }}
+              onClick={() => setActiveFolderId(id)}
             >
-              <CardContent
-                sx={{ "&:last-child": { pb: "10px" }, padding: "10px" }}
+              <Card
+                sx={{
+                  mb: "5px",
+                  backgroundColor:
+                    id === activeFolderId ? "rgb(255 211 140)" : null,
+                  position: "relative",
+                }}
               >
-                <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>
-                  {name}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
+                <CardContent
+                  sx={{ "&:last-child": { pb: "10px" }, padding: "10px" }}
+                >
+                  <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>
+                    {name}
+                  </Typography>
+                </CardContent>
+                <MoreHorizIcon
+                  className="btn-note-dropdown"
+                  fontSize="small"
+                  style={{
+                    position: "absolute",
+                    right: "0px",
+                    bottom: 0,
+                    color: isShowDropdown === id ? "#EB0014" : null,
+                  }}
+                  onClick={() => setIsShowDropdown(id)}
+                />
+              </Card>
+            </Link>
+            {isShowDropdown === id && (
+              <div className="dropdown-container" ref={dropdownRef1}>
+                <DeleteOutlineIcon sx={{ color: "#fff" }} />
+              </div>
+            )}
+          </div>
         );
       })}
     </List>

@@ -23,7 +23,7 @@ const Home = () => {
       <Typography variant="h4" sx={{ mb: "20px", mt: "50px", color: "#fff" }}>
         SỔ GHI CHÚ
       </Typography>
-      <Box style={{ display: "flex", justifyContent: "flex-right", marginBottom: "10px", gap: "8px" }}>
+      <Box sx={{ display: "flex", justifyContent: "right", marginBottom: "10px", gap: "8px" }}>
         <UserMenu />
         <PushNotification />
       </Box>

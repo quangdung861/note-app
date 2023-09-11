@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Link,
   Outlet,
@@ -20,11 +20,30 @@ import {
 } from "react-router-dom";
 import "./noteList.css";
 
-import { format, formatDistanceToNow } from 'date-fns'
-import vi from 'date-fns/locale/vi'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { format, formatDistanceToNow } from "date-fns";
+import vi from "date-fns/locale/vi";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const NoteList = () => {
+  const [isShowDropdown, setIsShowDropdown] = useState(false);
+
+  const dropdownRef1 = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef1.current &&
+        !dropdownRef1.current.contains(event.target)
+      ) {
+        setIsShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const { folder } = useLoaderData();
 
@@ -92,41 +111,69 @@ const NoteList = () => {
         >
           {folder.notes.map(({ id, content, updatedAt }) => {
             return (
-              <Link
-                key={id}
-                to={`note/${id}`}
-                style={{ textDecoration: "none" }}
-                onClick={() => setActiveNoteId(id)}
-              >
-                <Card
-                  sx={{
-                    mb: "5px",
-                    bgcolor: id === activeNoteId ? "rgb(255 211 140)" : null,
-                  }}
+              <div style={{ position: "relative" }}>
+                <Link
+                  key={id}
+                  to={`note/${id}`}
+                  style={{ textDecoration: "none" }}
+                  onClick={() => setActiveNoteId(id)}
                 >
-                  <CardContent
+                  <Card
                     sx={{
-                      "&:last-child": { pb: "10px" },
-                      padding: "10px",
+                      mb: "5px",
+                      bgcolor: id === activeNoteId ? "rgb(255 211 140)" : null,
+                      position: "relative",
                     }}
                   >
-                    <div
-                      className="title-note"
+                    <CardContent
+                      sx={{
+                        "&:last-child": { pb: "10px" },
+                        padding: "10px",
+                      }}
+                    >
+                      <div
+                        className="title-note"
+                        style={{
+                          fontSize: 14,
+                          fontWeight: "bold",
+                          marginBottom: "4px",
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: `${content.substring(0, 30) || "Empty"}`,
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          fontSize: "10px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "flex-end",
+                        }}
+                      >
+                        {format(new Date(updatedAt), "EEEE dd/MM/yyyy HH:mm ", {
+                          locale: vi,
+                        })}
+                      </Typography>
+                    </CardContent>
+                    <MoreHorizIcon
+                      className="btn-note-dropdown"
+                      fontSize="small"
                       style={{
-                        fontSize: 14,
-                        fontWeight: "bold",
-                        marginBottom: "4px",
+                        position: "absolute",
+                        right: "0px",
+                        bottom: 0,
+                        color: isShowDropdown === id ? "#EB0014" : null,
                       }}
-                      dangerouslySetInnerHTML={{
-                        __html: `${content.substring(0, 30) || "Empty"}`,
-                      }}
+                      onClick={() => setIsShowDropdown(id)}
                     />
-                    <Typography sx={{ fontSize: "10px" }}>
-                      {format(new Date(updatedAt), "EEEE dd/MM/yyyy HH:mm ", { locale: vi })}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Link>
+                  </Card>
+                </Link>
+                {isShowDropdown === id && (
+                  <div className="dropdown-container" ref={dropdownRef1}>
+                    <DeleteOutlineIcon sx={{ color: "#fff" }} />
+                  </div>
+                )}
+              </div>
             );
           })}
         </List>

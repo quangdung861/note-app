@@ -1,13 +1,44 @@
 .note-list {
-    &::-webkit-scrollbar {
-      -webkit-appearance: none;
-    }
-    &::-webkit-scrollbar:vertical {
-      width: 10px;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #f1f1f1;
-      border-radius: 10px;
-    }
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
   }
-  
+  &::-webkit-scrollbar:vertical {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+}
+
+.btn-note-dropdown {
+  color: #ccc;
+}
+
+.btn-note-dropdown:hover {
+  transition: ease all 0.2s;
+  color: #EB0014;
+}
+
+.dropdown-container {
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+  width: 100%;
+  background-color: #EB0014;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 6px;
+  text-align: center;
+  padding: 4px;
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}

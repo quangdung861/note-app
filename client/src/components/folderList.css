@@ -6,7 +6,39 @@
     width: 10px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #f1f1f1;
+    background-color: #ccc;
     border-radius: 10px;
+  }
+}
+
+.btn-folder-dropdown {
+  color: #ccc;
+}
+
+.btn-folder-dropdown:hover {
+  transition: ease all 0.2s;
+  color: #EB0014;
+}
+
+.dropdown-container {
+  width: 100%;
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+  background-color: #eb0014;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 6px;
+  text-align: center;
+  padding: 4px;
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
   }
 }
