@@ -20,10 +20,15 @@ import {
 } from "react-router-dom";
 import "./noteList.css";
 
-import { format, formatDistanceToNow } from "date-fns";
+import { format } from "date-fns";
 import vi from "date-fns/locale/vi";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
+import { DELETE_DOCUMENT } from "../utils/mutation";
+import { graphQLRequest } from "../utils/request";
+
+import { deleteNote } from "../utils/noteUtils";
 
 const NoteList = () => {
   const [isShowDropdown, setIsShowDropdown] = useState(false);
@@ -75,6 +80,38 @@ const NoteList = () => {
     );
   };
 
+  // const handleDeleteNote = (id) => {
+  //   const payload = {
+  //     query: DELETE_DOCUMENT,
+  //     variables: { id: id },
+  //   };
+
+  //   const options = {
+  //     // Thêm các tùy chọn yêu cầu (nếu cần)
+  //   };
+
+  //   graphQLRequest(payload, options)
+  //     .then((response) => {
+  //       if (response) {
+  //         const deletedDocument = response.deleteDocument;
+  //         if (deletedDocument) {
+  //           console.log("Document deleted successfully:", deletedDocument);
+  //         } else {
+  //           console.log("Failed to delete document.");
+  //         }
+  //       } else {
+  //         console.log("GraphQL request failed.");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // };
+
+  const handleDeleteNote = (id) => {
+    deleteNote(id)
+  }
+
   return (
     <Grid container height="100%">
       <Grid
@@ -110,13 +147,9 @@ const NoteList = () => {
           }
         >
           {folder.notes.map(({ id, content, updatedAt }) => {
-            console.log(content);
-
             const regex = /<p><\/p>/; // Biểu thức chính quy kiểm tra chuỗi "<p></p>"
 
             const result = regex.test(content); // Kiểm tra xem chuỗi có khớp với biểu thức không
-
-            console.log(result); // Kết quả: true nếu khớp, false nếu không khớp
 
             return (
               <div style={{ position: "relative" }} key={id}>
@@ -144,7 +177,8 @@ const NoteList = () => {
                           fontSize: 14,
                           fontWeight: 600,
                           marginBottom: "4px",
-                          color: content.length > 0 && !result? "#333" : "#7a7a7a",
+                          color:
+                            content.length > 0 && !result ? "#333" : "#7a7a7a",
                         }}
                         dangerouslySetInnerHTML={{
                           __html: `${
@@ -182,7 +216,11 @@ const NoteList = () => {
                   </Card>
                 </Link>
                 {isShowDropdown === id && (
-                  <div className="dropdown-container" ref={dropdownRef1}>
+                  <div
+                    className="dropdown-container"
+                    ref={dropdownRef1}
+                    onClick={() => handleDeleteNote(id)}
+                  >
                     <DeleteOutlineIcon sx={{ color: "#fff" }} />
                   </div>
                 )}

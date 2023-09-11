@@ -70,6 +70,16 @@ export const resolvers = {
       const note = await NoteModel.findByIdAndUpdate(noteId, args);
       return note;
     },
+    deleteNote: async (parent, args) => {
+      console.log("🚀 ~ file: index.js:74 ~ deleteNote: ~ args:", args)
+      try {
+        const note = await NoteModel.findByIdAndDelete(args.id);
+        return note;
+      } catch (error) {
+        console.error('Error deleting document:', error);
+        throw error;
+      }
+    },
     addFolder: async (parent, args, context) => {
       const newFolder = new FolderModel({ ...args, authorId: context.uid });
       console.log({ newFolder });
