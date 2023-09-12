@@ -65,7 +65,7 @@ const NoteList = () => {
 
     if (folder?.notes?.[0]) {
       navigate(`note/${folder?.notes?.[0].id}`);
-    } 
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId, folder.notes]);
 
@@ -80,20 +80,20 @@ const NoteList = () => {
   };
 
   const handleDeleteNote = async (id) => {
-    const result = await deleteNote(id);
-    if (result?.id) {
-      // console.log(">>Success", result.id);
-      // console.log(">>noteList", folder.notes);
-      await folder.notes.forEach((item, index) => {
-        if (item.id === result.id) {
-          folder.notes.splice(index, 1); // Xoá 1 phần tử từ vị trí index
-        }
-      });
-      // if (folder.notes.length === 0) {
-      //   navigate(`/folders`)
-      // }
-      return navigate(`/folders/${folderId}`);
-    }
+      const result = await deleteNote(id);
+      if (result?.id) {
+        // console.log(">>Success", result.id);
+        // console.log(">>noteList", folder.notes);
+        await folder.notes.forEach((item, index) => {
+          if (item.id === result.id) {
+            folder.notes.splice(index, 1); // Xoá 1 phần tử từ vị trí index
+          }
+        });
+        // if (folder.notes.length === 0) {
+        //   navigate(`/folders`)
+        // }
+        return navigate(`/folders/${folderId}`);
+      }
   };
 
   return (
