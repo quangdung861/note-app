@@ -65,10 +65,7 @@ const NoteList = () => {
 
     if (folder?.notes?.[0]) {
       navigate(`note/${folder?.notes?.[0].id}`);
-    } else {
-      navigate(`/folders/${folderId}`);
-    }
-
+    } 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [noteId, folder.notes]);
 
