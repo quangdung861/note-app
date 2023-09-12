@@ -91,7 +91,7 @@ export const deleteNote = async (id) => {
     variables: { id },
   });
 
-  console.log({ deleteNote });
+  // console.log({ deleteNote });
 
   return deleteNote;
 };

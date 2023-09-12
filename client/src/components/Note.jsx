@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import {
   AtomicBlockUtils,
   ContentState,
@@ -8,10 +8,16 @@ import {
 } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
-import { useLoaderData, useSubmit, useLocation } from "react-router-dom";
+import {
+  useLoaderData,
+  useSubmit,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { debounce } from "@mui/material";
 
 const Note = () => {
+  const navigate = useNavigate();
   const { note } = useLoaderData();
   const submit = useSubmit();
   const location = useLocation();
@@ -19,16 +25,16 @@ const Note = () => {
     return EditorState.createEmpty();
   });
 
-  const [rawHTML, setRawHTML] = useState(note.content);
-
   useEffect(() => {
-    const blocksFromHTML = convertFromHTML(note.content);
+    const blocksFromHTML = convertFromHTML(note?.content);
     const state = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap
     );
     setEditorState(EditorState.createWithContent(state));
-  }, [note.id]);
+  }, [note?.id]);
+
+  const [rawHTML, setRawHTML] = useState(note.content);
 
   useEffect(() => {
     debouncedMemorized(rawHTML, note, location.pathname);
@@ -37,7 +43,7 @@ const Note = () => {
 
   const debouncedMemorized = useMemo(() => {
     return debounce((rawHTML, note, pathname) => {
-      if (rawHTML === note.content) return;
+      if (rawHTML === note?.content) return;
 
       submit(
         { ...note, content: rawHTML },
@@ -51,8 +57,8 @@ const Note = () => {
   }, []);
 
   useEffect(() => {
-    setRawHTML(note.content);
-  }, [note.content]);
+    setRawHTML(note?.content);
+  }, [note?.content]);
 
   const handleOnChange = (e) => {
     setEditorState(e);
