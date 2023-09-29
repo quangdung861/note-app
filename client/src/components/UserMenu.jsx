@@ -21,7 +21,7 @@ const UserMenu = () => {
   };
   return (
     <>
-      <Box sx={{ display: "flex", color: "white" }} onClick={handleClick}>
+      <Box sx={{ display: "flex", color: "white", cursor: "pointer" }} onClick={handleClick}>
         <Typography> {displayName}</Typography>
         <Avatar
           alt="avatar"
@@ -35,7 +35,7 @@ const UserMenu = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
       </Menu>
     </>
   );

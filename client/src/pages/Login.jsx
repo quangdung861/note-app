@@ -32,18 +32,29 @@ const Login = () => {
 
   if (localStorage.getItem("accessToken")) {
     // navigate("/");
-    return <Navigate to="/" />
+    return <Navigate to="/" />;
   }
 
   return (
-    <>
-      <Typography variant="h5" sx={{ marginBottom: "10px" }}>
-        Welcome to Note App
-      </Typography>
-      <Button variant="outlined" onClick={handleLoginWithGoogle}>
-        Login with Google
-      </Button>
-    </>
+    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+      <div
+        style={{
+          position: "absolute",
+          width: "50%",
+          height: "50%",
+          top: "25%",
+          left: "25%",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="h5" sx={{ marginBottom: "10px", color: "white" }}>
+          SỔ GHI CHÚ
+        </Typography>
+        <Button variant="contained" onClick={handleLoginWithGoogle}>
+          Đăng nhập bằng Google
+        </Button>
+      </div>
+    </div>
   );
 };
 
