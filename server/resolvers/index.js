@@ -71,10 +71,18 @@ export const resolvers = {
       return note;
     },
     deleteNote: async (parent, args) => {
-      console.log("🚀 ~ file: index.js:74 ~ deleteNote: ~ args:", args)
       try {
         const note = await NoteModel.findByIdAndDelete(args.id);
         return note;
+      } catch (error) {
+        console.error('Error deleting document:', error);
+        throw error;
+      }
+    },
+    deleteFolder: async (parent, args) => {
+      try {
+        const folder = await FolderModel.findByIdAndDelete(args.id);
+        return folder;
       } catch (error) {
         console.error('Error deleting document:', error);
         throw error;

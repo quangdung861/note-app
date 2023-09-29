@@ -1,15 +1,18 @@
 import { Box, Card, CardContent, List, Typography } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import NewFolder from "./NewFolder";
 import "./folderList.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { deleteFolder } from "../utils/noteUtils";
 
 const FolderList = ({ folders }) => {
   const { folderId } = useParams();
   const [activeFolderId, setActiveFolderId] = useState(folderId);
   const [isShowDropdown, setIsShowDropdown] = useState(false);
+
+  const navigate = useNavigate();
 
   const dropdownRef1 = useRef(null);
 
@@ -27,6 +30,23 @@ const FolderList = ({ folders }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleDeleteFolder = async (id) => {
+    const result = await deleteFolder(id);
+    if (result?.id) {
+      // console.log(">>Success", result.id);
+      // console.log(">>noteList", folder.notes);
+      await folders.forEach((item, index) => {
+        if (item.id === result.id) {
+          folders.splice(index, 1); // Xoá 1 phần tử từ vị trí index
+        }
+      });
+      // if (folder.notes.length === 0) {
+      //   navigate(`/folders`)
+      // }
+      return navigate(`/`);
+    }
+  };
 
   return (
     <List
@@ -92,7 +112,11 @@ const FolderList = ({ folders }) => {
               </Card>
             </Link>
             {isShowDropdown === id && (
-              <div className="dropdown-container" ref={dropdownRef1}>
+              <div
+                className="dropdown-container"
+                ref={dropdownRef1}
+                onClick={() => handleDeleteFolder(id)}
+              >
                 <DeleteOutlineIcon sx={{ color: "#fff" }} />
               </div>
             )}

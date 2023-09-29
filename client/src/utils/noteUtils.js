@@ -95,3 +95,19 @@ export const deleteNote = async (id) => {
 
   return deleteNote;
 };
+
+export const deleteFolder = async (id) => {
+  const query = `mutation Mutation($id: String!) {
+    deleteFolder(id: $id) {
+      id
+    }
+  }`;
+  const { deleteFolder } = await graphQLRequest({
+    query,
+    variables: { id },
+  });
+
+  // console.log({ deleteFolder });
+
+  return deleteFolder;
+};

@@ -26,7 +26,7 @@ const Note = () => {
   });
 
   useEffect(() => {
-    const blocksFromHTML = convertFromHTML(note?.content);
+    const blocksFromHTML = convertFromHTML(note?.content || "<p></p>");
     const state = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap
@@ -34,7 +34,7 @@ const Note = () => {
     setEditorState(EditorState.createWithContent(state));
   }, [note?.id]);
 
-  const [rawHTML, setRawHTML] = useState(note.content);
+  const [rawHTML, setRawHTML] = useState(note?.content);
 
   useEffect(() => {
     debouncedMemorized(rawHTML, note, location.pathname);

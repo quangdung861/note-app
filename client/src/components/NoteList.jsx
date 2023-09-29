@@ -49,7 +49,6 @@ const NoteList = () => {
   }, []);
 
   const { folder } = useLoaderData();
-  console.log("🚀 ~ file: NoteList.jsx:52 ~ NoteList ~ folder:", folder);
 
   const { noteId, folderId } = useParams();
   const [activeNoteId, setActiveNoteId] = useState(noteId);
@@ -92,9 +91,11 @@ const NoteList = () => {
         // if (folder.notes.length === 0) {
         //   navigate(`/folders`)
         // }
-        return navigate(`/folders/${folderId}`);
+        return navigate(`/`);
       }
   };
+
+
 
   return (
     <Grid container height="100%">
